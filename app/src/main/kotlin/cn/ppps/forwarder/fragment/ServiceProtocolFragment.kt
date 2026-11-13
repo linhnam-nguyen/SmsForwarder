@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import cn.ppps.forwarder.R
 import cn.ppps.forwarder.core.BaseFragment
 import cn.ppps.forwarder.databinding.FragmentServiceProtocolBinding
-import com.xuexiang.xaop.annotation.MemoryCache
 import com.xuexiang.xpage.annotation.Page
 import com.xuexiang.xrouter.annotation.AutoWired
 import com.xuexiang.xrouter.launcher.XRouter
@@ -55,26 +54,15 @@ class ServiceProtocolFragment : BaseFragment<FragmentServiceProtocolBinding?>() 
         }
     }
 
-    @get:MemoryCache("account_protocol")
     private val accountProtocol: String
-        private get() = ResourceUtils.readStringFromAssert(ACCOUNT_PROTOCOL_ASSET_PATH)
+        get() = ResourceUtils.readStringFromAssert(getString(R.string.account_protocol_asset))
 
-    @get:MemoryCache("privacy_protocol")
     private val privacyProtocol: String
-        private get() = ResourceUtils.readStringFromAssert(PRIVACY_PROTOCOL_ASSET_PATH)
+        get() = ResourceUtils.readStringFromAssert(getString(R.string.privacy_protocol_asset))
 
     companion object {
         const val KEY_PROTOCOL_TITLE = "key_protocol_title"
         const val KEY_IS_IMMERSIVE = "key_is_immersive"
 
-        /**
-         * 用户协议asset本地保存路径
-         */
-        private const val ACCOUNT_PROTOCOL_ASSET_PATH = "protocol/account_protocol.txt"
-
-        /**
-         * 隐私政策asset本地保存路径
-         */
-        private const val PRIVACY_PROTOCOL_ASSET_PATH = "protocol/privacy_protocol.txt"
     }
 }

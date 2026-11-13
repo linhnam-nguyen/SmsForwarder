@@ -1,0 +1,129 @@
+Software License and Service Agreement
+
+IMPORTANT NOTICE
+
+The SmsForwarder developer (hereafter "the developer") urges users to read and fully understand this Software License and Service Agreement ("Agreement"), especially provisions exempting or limiting the developer's liability, dispute resolution and applicable law. Liability exemptions and limitations are marked in bold in the original. Please read carefully and decide whether to accept this Agreement (minors should read it with their legal guardians). Downloading, installing or using the software, obtaining an account or signing in constitutes acceptance of all terms.
+
+The developer may revise this Agreement. Updated terms will be published on the official website or in the software and take effect upon publication. Users may download and install the software again or consult the website for the latest terms. If you do not accept revised terms, stop using the developer's software and services immediately. Continued use constitutes acceptance.
+
+1. General provisions
+
+1.1. This Agreement is between you ("user") and the developer and its operating partners concerning downloading, installing and using the developer's software ("software") and related services.
+
+1.2. The software and services are provided for installation on devices including mobile smart terminals, offering users services such as binding and operating smart products.
+
+1.3. Ownership and operating rights belong to the developer.
+
+2. Scope of license
+
+2.1. The developer grants a personal, non-transferable, non-sublicensable and non-exclusive license.
+
+2.2. Users may install, use, display and run the software on a single mobile terminal for noncommercial purposes. Users may not install, use or run it for commercial operations, or copy, alter, modify, hook into or create derivative works from the software, data released into device memory during operation, or client-server interaction data, including through plugins, add-ons or unauthorized third-party tools or services. Commercial sale, reproduction and distribution, such as preinstallation or bundling, require written authorization from the developer.
+
+2.3. Without permission, users may not install the software on other devices not expressly authorized by the developer, including set-top boxes, game consoles, televisions and DVD players.
+
+2.4. Users may make one backup copy for use of the software and services. It must retain all original copyright information.
+
+2.5. No rights other than those expressly granted are authorized. Other uses require separate written consent.
+
+3. Obtaining, installing and upgrading the software
+
+3.1. Download and install through designated websites or methods. Avoid unauthorized websites that may infect devices with malware capable of destroying data or obtaining private information. If obtained from an unauthorized third party, including an installer with the same name, the developer cannot guarantee proper operation and is not responsible for resulting losses.
+
+3.2. Select the version compatible with your device. Users bear responsibility for software or device problems or damage arising from incompatibility.
+
+3.3. To improve the experience and services, the developer may provide replacements, modifications or upgrades and may charge for them with prior consent. Upgrade notifications are enabled by default; depending on the version, users may choose whether to enable them. Continued availability of older versions is not guaranteed after a new release.
+
+4. Rules of use
+
+4.1. Users may use the software and services in accordance with law and this Agreement and must not:
+
+4.1.1. Remove copyright information from the software or copies, or modify, remove or bypass technical measures protecting intellectual property.
+
+4.1.2. Reverse engineer, disassemble, decompile or otherwise attempt to obtain source code.
+
+4.1.3. Modify or falsify operating instructions or data to add, remove or change software functions or effects, or operate or distribute tools or methods for such purposes, whether commercial or not.
+
+4.1.4. Endanger network security, including using unauthorized data or accessing unauthorized servers or accounts; accessing public networks or others' operating systems without permission and deleting, modifying or adding stored information; probing, scanning or testing software or network vulnerabilities without permission; interfering with or disrupting normal software or website operation; deliberately distributing malware or viruses or otherwise disrupting network information services; or falsifying TCP/IP packet names or portions thereof.
+
+4.1.5. Sign in or use the software and services through third-party compatible software or systems not developed, authorized or recognized by the developer, or create, publish or distribute such tools.
+
+4.1.6. Without written consent, use, rent, lend, copy, modify, link, republish, compile, publish or distribute software or information, create mirrors, or use the software to develop related derivative products, works, services, plugins, add-ons, compatibility or interconnection solutions.
+
+4.1.7. Publish, transmit, distribute or store content violating local laws and regulations.
+
+4.1.8. Publish, transmit, distribute or store content infringing intellectual property, trade secrets or other legitimate rights.
+
+4.1.9. Publish, transmit or distribute advertising or spam in bulk.
+
+4.1.10. Use the software or other services unlawfully, for unlawful purposes or inconsistently with this Agreement.
+
+4.2. Rules for publishing information
+
+4.2.1. You may publish original or authorized opinions, data, text, information, usernames, images, photos, personal information, audio, video and links. You must own or have lawful authorization for uploaded content and must not infringe third-party rights.
+
+4.2.2. Comply with local laws and regulations.
+
+4.2.3. Do not use the software to:
+
+4.2.3.1. Produce, copy, publish, distribute or store content violating local laws.
+
+4.2.3.2. Publish, transmit, distribute or store content infringing reputation, image rights, intellectual property, trade secrets or other legitimate rights.
+
+4.2.3.3. Fabricate facts or conceal the truth to mislead or deceive others.
+
+4.2.3.4. Publish, transmit or distribute advertising or spam.
+
+4.2.3.5. Engage in other conduct violating local laws or regulations.
+
+4.2.4. Without permission, do not engage in commercial activities such as advertising or selling goods within the software.
+
+4.3. You understand and agree that:
+
+4.3.1. The developer may determine whether users are suspected of violating these rules and suspend or terminate the license or impose other restrictions permitted by this Agreement.
+
+4.3.2. The developer may directly delete information published using the licensed software that is suspected of being unlawful, infringing rights or violating this Agreement.
+
+4.3.3. Users independently bear legal responsibility in their own name for harm caused to third parties by violations and must protect the developer against resulting losses or additional costs.
+
+4.3.4. If violations of law or this Agreement cause losses, third-party claims or administrative penalties, users must compensate the developer for resulting losses and/or costs, including reasonable legal fees and investigation and evidence-gathering expenses.
+
+5. Service risks and disclaimers
+
+5.1. Users must provide equipment for internet access and telecommunications services and pay communication, information and other charges imposed by third parties, including telecommunications providers. Confirm applicable fees with the relevant provider.
+
+5.2. The developer and partners are not liable for losses arising from third-party communication failures, technical problems, networks, mobile devices, system instability or force majeure.
+
+5.3. Like most internet software, this software may be affected by user-related factors, network quality or social conditions and exposed to security issues, such as harassment using user information or Trojan horses in other downloaded software or visited websites that threaten device data and normal use. Users should protect information and strengthen passwords to avoid losses and harassment.
+
+5.4. The software may invoke third-party systems or software to support use or access or provide requested services. Results are provided by the third party. The developer does not guarantee their safety, accuracy or effectiveness or other uncertain risks and bears no responsibility for resulting disputes or damages.
+
+5.5. To preserve autonomy in business development and adjustment, the developer may modify or interrupt services at any time without notice or liability to users or third parties.
+
+5.6. Except where expressly required by law, we will make every effort to ensure the safety, effectiveness, accuracy and reliability of the software and related technology and information, but existing technology prevents guarantees.
+
+5.7. Users bear responsibility for personal injury or incidental or indirect economic damages, including lost profits, lost data, business interruption and other commercial damage or losses arising from:
+
+5.7.1. Use of or inability to use the licensed software.
+
+5.7.2. Unauthorized third-party use or alteration of user data.
+
+5.7.3. Costs and losses arising from users' actions using the software.
+
+5.7.4. Users' misunderstanding of the software.
+
+5.7.5. Other software-related losses not caused by the developer.
+
+5.8. For interactions between users through the software, the party at fault bears legal responsibility for personal or financial harm or losses caused or potentially caused by misleading or deceptive conduct.
+
+6. Intellectual property
+
+6.1. The developer is the intellectual property rights holder. Copyrights, trademarks, patents, trade secrets and all related information (including text, images, audio, video, charts, interface designs, layouts, data and electronic documents) are protected by applicable local laws and international treaties, and belong to the developer.
+
+6.2. Without written consent, users may not exercise, exploit or transfer these rights or authorize third parties to do so for commercial or noncommercial purposes. The developer reserves the right to pursue legal liability.
+
+7. Changes to the Agreement
+
+7.1. The developer may modify the Agreement when necessary and publish revised terms on relevant pages. Users who disagree should cancel the service. Continued use constitutes acceptance of changes.
+
+7.2. The developer and partner companies may modify paid services, rates, payment methods, service fees and terms as needed. Fees may be introduced for some services now or in the future. Users who refuse payment cannot continue using affected services after charging begins. The developer and partners will make every effort to notify users of changes by email or other means.

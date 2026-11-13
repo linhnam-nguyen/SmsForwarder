@@ -165,6 +165,22 @@ class GuideTipsDialog(context: Context?, tips: List<TipInfo>) :
          */
         @JvmStatic
         fun showTipsForce(context: Context?) {
+            // Use the bundled English guide for English and unsupported system languages.
+            // Keep the existing remote Chinese guides for Chinese locales.
+            if (context != null && !getString(R.string.url_tips).endsWith("/tips.json") &&
+                !getString(R.string.url_tips).endsWith("/tips_tc.json")
+            ) {
+                try {
+                    val json = context.assets.open("tips_en.json").bufferedReader().use { it.readText() }
+                    val data = Gson().fromJson(json, JsonObject::class.java)["Data"].asJsonArray
+                    val listType = object : TypeToken<List<TipInfo>>() {}.type
+                    val tips = Gson().fromJson<List<TipInfo>>(data, listType)
+                    GuideTipsDialog(context, tips).show()
+                    return
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
             XHttp.get(getString(R.string.url_tips))
                 .keepJson(true)
                 .ignoreHttpsCert()

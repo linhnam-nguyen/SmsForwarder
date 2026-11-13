@@ -1,0 +1,25 @@
+{
+  "Code": 0,
+  "Data": [
+    {
+      "title": "SmsForwarder",
+      "content": "This app monitors SMS messages, incoming calls and app notifications on Android and forwards them to other devices according to configured rules.<br />\nMake sure you understand what the app does.<br />\nOtherwise, uninstall it immediately."
+    },
+    {
+      "title": "Fraud warning",
+      "content": "This app is not involved in or a guarantor of any paid-task or rebate schemes. Avoid such schemes and beware of online fraud.<br />\nConfirm that you installed this app voluntarily for your own use.<br />\nOtherwise, uninstall it immediately."
+    },
+    {
+      "title": "Before you begin",
+      "content": "Read the <a href=\"https://gitee.com/pp/SmsForwarder/wikis/pages\">Wiki</a> before configuring the app.<br />\nIf you encounter a problem, consult the <a href=\"https://gitee.com/pp/SmsForwarder/wikis/pages?sort_id=4877445&doc_id=1821427\">FAQ</a> first.<br />\nIf you cannot find an answer, ask the support group and describe the problem clearly, including relevant configuration screenshots and logs."
+    },
+    {
+      "title": "SmsF community support",
+      "content": "<a href=\"https://t.me/+QBZgnL_fxYM0NjE9\">Telegram group</a>"
+    },
+    {
+      "title": "Donors",
+      "content": "Thank you to everyone who supports this open-source project! <a href=\"https://gitee.com/pp/SmsForwarder/wikis/pages?sort_id=4912193&doc_id=1821427\">View the donor list.</a>"
+    }
+  ]
+}

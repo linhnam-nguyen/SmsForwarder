@@ -1259,4 +1259,7 @@
     <string name="start_discovery">搜索裝置</string>
     <string name="invalid_bluetooth_mac_address">藍牙裝置MAC地址無效，例如：AA:BB:CC:DD:EE:FF</string>
     <string name="auto_start_redmi"><![CDATA[紅米手機：授權管理 -> 自啟動管理 -> 允許應用自啟動]]></string>
+    <string name="account_protocol_asset">protocol/account_protocol.txt</string>
+    <string name="privacy_protocol_asset">protocol/privacy_protocol.txt</string>
+    <string name="about_wechat_sm4_required">微信小程式僅支援SM4加密傳輸！請前往主動控制·服務端修改安全措施！</string>
 </resources>

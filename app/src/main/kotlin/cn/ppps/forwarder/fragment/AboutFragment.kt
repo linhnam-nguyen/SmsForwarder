@@ -149,7 +149,7 @@ class AboutFragment : BaseFragment<FragmentAboutBinding?>(), SuperTextView.OnSup
 
             R.id.menu_wechat_miniprogram -> {
                 if (HttpServerUtils.safetyMeasures != 3) {
-                    XToastUtils.error("微信小程序只支持SM4加密传输！请前往主动控制·服务端修改安全措施！")
+                    XToastUtils.error(R.string.about_wechat_sm4_required)
                     //return
                 }
                 previewPicture(this, getString(R.string.url_wechat_miniprogram), null)

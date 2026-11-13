@@ -1,0 +1,83 @@
+SmsForwarder does not collect any of your private data!!!
+
+When the app starts, version information is sent to Umeng Analytics.
+
+When you manually check for updates, the version number is sent to check for a new version.
+
+Apart from this, no data is sent!!!
+
+--------------------------------------
+The following is a general agreement template.
+--------------------------------------
+
+SmsForwarder respects and protects the privacy of all users of its services. To provide more accurate and personalized services, SmsForwarder uses and discloses personal information in accordance with this Privacy Policy, treating it with a high degree of diligence and care. Except as otherwise provided in this policy, SmsForwarder will not disclose this information or provide it to third parties without your prior permission. SmsForwarder may update this policy from time to time. By agreeing to the SmsForwarder service agreement, you are deemed to agree to the entirety of this policy, which forms an integral part of that agreement.
+
+1. Scope
+
+a) Personal registration information you provide when registering a SmsForwarder account as requested by SmsForwarder.
+
+b) Information automatically received and recorded from your browser and computer when you use SmsForwarder online services or visit its platform pages, including your IP address, browser type, language, access date and time, hardware and software characteristics, and records of requested pages.
+
+c) Personal user data obtained lawfully from business partners.
+
+You understand and agree that the following information is outside this policy's scope:
+
+a) Keywords entered when using the platform's search services.
+
+b) Information collected about your publications on the platform, including participation in activities, transaction information and review details.
+
+c) Violations of laws or platform rules and measures taken against you.
+
+2. Use of information
+
+a) SmsForwarder will not provide, sell, rent, share or trade personal information with unrelated third parties unless you have given prior permission or the third party and SmsForwarder (including affiliates) provide services to you individually or jointly. After the service ends, the third party will be prohibited from accessing all such information, including information previously accessible to it.
+
+b) SmsForwarder does not allow third parties to collect, edit, sell or freely distribute your personal information by any means. If a platform user engages in such conduct, SmsForwarder may immediately terminate its service agreement with that user upon discovery.
+
+c) To serve users, SmsForwarder may use personal information to provide information of interest, including product and service information, or share information with partners so they can send you information about their products and services (the latter requires your prior consent).
+
+3. Disclosure
+
+SmsForwarder will disclose all or part of your personal information in accordance with your wishes or legal requirements in the following circumstances:
+
+a) Disclosure to a third party with your prior consent.
+
+b) Sharing with third parties when necessary to provide requested products or services.
+
+c) Disclosure to third parties or administrative or judicial authorities as required by law or by such authorities.
+
+d) Disclosure to third parties when you violate relevant Chinese laws or regulations, the SmsForwarder service agreement or related rules.
+
+e) If you are an eligible intellectual property complainant and have filed a complaint, disclosure to the respondent at their request to allow both parties to resolve potential disputes.
+
+f) If a party to a transaction on the platform fulfills or partly fulfills its obligations and requests disclosure, SmsForwarder may provide necessary information, such as the other party's contact details, to facilitate completion or dispute resolution.
+
+g) Other disclosures deemed appropriate under laws, regulations or website policies.
+
+4. Storage and exchange
+
+Information and materials collected about you will be stored on servers of SmsForwarder and/or its affiliates. They may be transferred outside your country or region or the location where they were collected, and accessed, stored and displayed abroad.
+
+5. Cookies
+
+a) Unless you refuse cookies, SmsForwarder will set or retrieve cookies on your computer to enable sign-in or use of services or functions that rely on them. Cookies enable more personalized services, including promotional services.
+
+b) You may accept or refuse cookies by changing browser settings. Refusing cookies may prevent you from signing in or using services or features that depend on them.
+
+c) Information obtained through SmsForwarder cookies is subject to this policy.
+
+6. Information security
+
+a) SmsForwarder accounts have security protections. Keep your username and password safe. SmsForwarder uses security measures such as password encryption to prevent loss, misuse and alteration of information. Nevertheless, there are no perfect security measures on information networks.
+
+b) When conducting online transactions, you may need to disclose personal information such as contact details or postal addresses to actual or potential transaction partners. Protect your information and provide it only when necessary. If you discover a leak, especially of your SmsForwarder username or password, immediately contact customer support so appropriate measures can be taken.
+
+7. Third-party SDK
+
+a) Umeng Analytics SDK (com.umeng)
+   Purpose: application usage analytics.
+   Scope: application usage analytics.
+
+8. Collection of sensitive information
+
+Our product integrates the Umeng+ SDK. The SDK needs to collect your device MAC address and unique device identifiers (IMEI/Android ID/IDFA/OPENUDID/GUID and SIM IMSI information) to provide analytics services, and uses geographical location to calibrate report accuracy and provide basic anti-fraud capabilities.
