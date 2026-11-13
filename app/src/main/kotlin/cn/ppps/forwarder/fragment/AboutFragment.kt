@@ -50,7 +50,7 @@ class AboutFragment : BaseFragment<FragmentAboutBinding?>(), SuperTextView.OnSup
     }
 
     /**
-     * 初始化控件
+     * Initialize widgets
      */
     override fun initViews() {
         binding!!.menuVersion.setLeftString(String.format(resources.getString(R.string.about_app_version), AppUtils.getAppVersionName()))

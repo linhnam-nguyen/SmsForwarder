@@ -66,45 +66,45 @@
         <item>bayimob.com</item>
     </string-array>
 
-    <!--转发分类-->
+    <!--Forwarding categories-->
     <string-array name="type_param_option">
         <item>@string/type_param_sms</item>
         <item>@string/type_param_call</item>
         <item>@string/type_param_app</item>
     </string-array>
 
-    <!--启用状态-->
+    <!--Enabled status-->
     <string-array name="status_param_option">
         <item>@string/status_param_option_enabled</item>
         <item>@string/status_param_option_disabled</item>
     </string-array>
 
-    <!--短信类型-->
+    <!--SMS types-->
     <string-array name="sms_type_option">
         <item>@string/sms_type_option_receive</item>
         <item>@string/sms_type_option_send</item>
     </string-array>
 
-    <!--电话类型-->
+    <!--Call types-->
     <string-array name="call_type_option">
         <item>@string/call_type_option_missed</item>
         <item>@string/call_type_option_call_out</item>
         <item>@string/call_type_option_received</item>
     </string-array>
 
-    <!--克隆类型-->
+    <!--Clone types-->
     <string-array name="clone_type_option">
         <item>@string/clone_type_option_network</item>
         <item>@string/clone_type_option_offline</item>
     </string-array>
 
-    <!--APP类型-->
+    <!--App types-->
     <string-array name="app_type_option">
         <item>@string/app_type_option_user</item>
         <item>@string/app_type_option_system</item>
     </string-array>
 
-    <!--任务类型-->
+    <!--Task types-->
     <string-array name="task_type_option">
         <item>@string/task_type_option_mine</item>
         <item>@string/task_type_option_fixed</item>
@@ -123,7 +123,7 @@
         <item>\@139.com</item>
         <item>\@189.cn</item>
         <item>\@icloud.com</item>
-        <item>@string/other_mail_type</item><!--注意这里不能修改-->
+        <item>@string/other_mail_type</item><!--Do not modify this entry-->
     </string-array>
 
     <string-array name="charsets">

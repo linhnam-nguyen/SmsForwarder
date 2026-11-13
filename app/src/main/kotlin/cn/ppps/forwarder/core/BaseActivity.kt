@@ -21,7 +21,7 @@ import com.xuexiang.xui.widget.slideback.SlideBack
 import com.xuexiang.xutil.resource.ResUtils.isRtl
 
 /**
- * 基础容器Activity
+ * Base container activity
  *
  * @author XUE
  * @since 2019/3/22 11:21
@@ -29,7 +29,7 @@ import com.xuexiang.xutil.resource.ResUtils.isRtl
 @Suppress("MemberVisibilityCanBePrivate", "UNCHECKED_CAST", "DEPRECATION", "EmptyMethod")
 open class BaseActivity<Binding : ViewBinding?> : XPageActivity() {
     /**
-     * 获取Binding
+     * Get the binding
      *
      * @return Binding
      */
@@ -40,9 +40,9 @@ open class BaseActivity<Binding : ViewBinding?> : XPageActivity() {
         protected set
 
     override fun attachBaseContext(newBase: Context) {
-        //注入字体
+        //Inject fonts
         //super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase))
-        // 绑定语种
+        // Attach the app locale
         //super.attachBaseContext(ViewPumpContextWrapper.wrap(MultiLanguages.attach(newBase)))
         super.attachBaseContext(MultiLanguages.attach(newBase))
     }
@@ -57,7 +57,7 @@ open class BaseActivity<Binding : ViewBinding?> : XPageActivity() {
         super.onCreate(savedInstanceState)
         registerSlideBack()
 
-        //用于接收各种事件的吐司
+        //Toast notifications for various events
         LiveEventBus.get(EVENT_TOAST_ERROR, String::class.java).observe(this) { msg: String ->
             XToastUtils.error(msg, 15000)
         }
@@ -73,7 +73,7 @@ open class BaseActivity<Binding : ViewBinding?> : XPageActivity() {
     }
 
     /**
-     * 构建ViewBinding
+     * Create the ViewBinding
      *
      * @param inflater  inflater
      * @return ViewBinding
@@ -83,16 +83,16 @@ open class BaseActivity<Binding : ViewBinding?> : XPageActivity() {
     }
 
     /**
-     * 初始化状态栏的样式
+     * Initialize the status bar style
      */
     protected open fun initStatusBarStyle() {}
 
     /**
-     * 打开fragment
+     * Open a fragment
      *
-     * @param clazz          页面类
-     * @param addToBackStack 是否添加到栈中
-     * @return 打开的fragment对象
+     * @param clazz          Page class
+     * @param addToBackStack Whether to add to the back stack
+     * @return Opened fragment instance
      */
     fun <T : XPageFragment?> openPage(clazz: Class<T>?, addToBackStack: Boolean): T {
         val page = CoreSwitchBean(clazz)
@@ -101,9 +101,9 @@ open class BaseActivity<Binding : ViewBinding?> : XPageActivity() {
     }
 
     /**
-     * 打开fragment
+     * Open a fragment
      *
-     * @return 打开的fragment对象
+     * @return Opened fragment instance
      */
     fun <T : XPageFragment?> openNewPage(clazz: Class<T>?): T {
         val page = CoreSwitchBean(clazz)
@@ -112,17 +112,17 @@ open class BaseActivity<Binding : ViewBinding?> : XPageActivity() {
     }
 
     /**
-     * 切换fragment
+     * Switch fragments
      *
-     * @param clazz 页面类
-     * @return 打开的fragment对象
+     * @param clazz Page class
+     * @return Opened fragment instance
      */
     fun <T : XPageFragment?> switchPage(clazz: Class<T>?): T {
         return openPage(clazz, false)
     }
 
     /**
-     * 序列化对象
+     * Serialize an object
      *
      * @param object
      * @return
@@ -138,7 +138,7 @@ open class BaseActivity<Binding : ViewBinding?> : XPageActivity() {
     }
 
     /**
-     * 注册侧滑回调
+     * Register the swipe callback
      */
     protected fun registerSlideBack() {
         if (isSupportSlideBack) {
@@ -151,7 +151,7 @@ open class BaseActivity<Binding : ViewBinding?> : XPageActivity() {
     }
 
     /**
-     * 注销侧滑回调
+     * Unregister the swipe callback
      */
     protected fun unregisterSlideBack() {
         if (isSupportSlideBack) {
@@ -160,7 +160,7 @@ open class BaseActivity<Binding : ViewBinding?> : XPageActivity() {
     }
 
     /**
-     * @return 是否支持侧滑返回
+     * @return Whether swipe-back navigation is supported
      */
     protected open val isSupportSlideBack: Boolean
         get() {
@@ -173,7 +173,7 @@ open class BaseActivity<Binding : ViewBinding?> : XPageActivity() {
 
     companion object {
         /**
-         * 是否支持侧滑返回
+         * Whether swipe-back navigation is supported
          */
         const val KEY_SUPPORT_SLIDE_BACK = "key_support_slide_back"
     }

@@ -62,8 +62,6 @@ import cn.ppps.forwarder.utils.SettingUtils
 import cn.ppps.forwarder.utils.XToastUtils
 import cn.ppps.forwarder.widget.GuideTipsDialog
 import cn.ppps.forwarder.workers.LoadAppListWorker
-import com.hjq.language.LocaleContract
-import com.hjq.language.MultiLanguages
 import com.hjq.permissions.OnPermissionCallback
 import com.hjq.permissions.XXPermissions
 import com.hjq.permissions.permission.PermissionLists
@@ -212,7 +210,6 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding?>(), View.OnClickL
         //调试模式
         switchDebugMode(binding!!.sbDebugMode)
         //多语言设置
-        switchLanguage(binding!!.rgMainLanguages)
 
         initViewsFinished = true
     }
@@ -1153,68 +1150,6 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding?>(), View.OnClickL
         }
     }
 
-    //多语言设置
-    private fun switchLanguage(rgMainLanguages: RadioGroup) {
-        val context = App.context
-        rgMainLanguages.check(
-            if (MultiLanguages.isSystemLanguage(context)) {
-                R.id.rb_main_language_auto
-            } else {
-                when (MultiLanguages.getAppLanguage(context)) {
-                    LocaleContract.getSimplifiedChineseLocale() -> R.id.rb_main_language_cn
-                    LocaleContract.getTraditionalChineseLocale() -> R.id.rb_main_language_tw
-                    LocaleContract.getEnglishLocale() -> R.id.rb_main_language_en
-                    else -> R.id.rb_main_language_auto
-                }
-            }
-        )
-
-        rgMainLanguages.setOnCheckedChangeListener { _, checkedId ->
-            val oldLang = MultiLanguages.getAppLanguage(context)
-            var newLang = MultiLanguages.getSystemLanguage(context)
-            //SettingUtils.isFlowSystemLanguage = false
-            when (checkedId) {
-                R.id.rb_main_language_auto -> {
-                    // 只为了触发onAppLocaleChange
-                    MultiLanguages.setAppLanguage(context, newLang)
-                    // SettingUtils.isFlowSystemLanguage = true
-                    // 跟随系统
-                    MultiLanguages.clearAppLanguage(context)
-                }
-
-                R.id.rb_main_language_cn -> {
-                    // 简体中文
-                    newLang = LocaleContract.getSimplifiedChineseLocale()
-                    MultiLanguages.setAppLanguage(context, newLang)
-                }
-
-                R.id.rb_main_language_tw -> {
-                    // 繁体中文
-                    newLang = LocaleContract.getTraditionalChineseLocale()
-                    MultiLanguages.setAppLanguage(context, newLang)
-                }
-
-                R.id.rb_main_language_en -> {
-                    // 英语
-                    newLang = LocaleContract.getEnglishLocale()
-                    MultiLanguages.setAppLanguage(context, newLang)
-                }
-            }
-
-            // 重启应用
-            Log.d(TAG, "oldLang: $oldLang, newLang: $newLang")
-            if (oldLang.toString() != newLang.toString()) {
-                //CommonUtils.switchLanguage(oldLang, newLang)
-                XToastUtils.toast(R.string.multi_languages_toast)
-                //切换语种后重启APP
-                Thread.sleep(200)
-                val intent = Intent(App.context, MainActivity::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                startActivity(intent)
-                requireActivity().finish()
-            }
-        }
-    }
 
     //获取当前手机品牌
     private fun getAutoStartTips(): String {

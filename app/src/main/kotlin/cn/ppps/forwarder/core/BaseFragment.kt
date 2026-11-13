@@ -27,13 +27,13 @@ import java.lang.reflect.Type
 
 
 /**
- * 基础fragment，使用XPage框架搭建
+ * Base fragment built on the XPage framework
  *
  *
- * 具体使用参见：https://github.com/xuexiangjys/XPage/wiki
+ * For usage, see:https://github.com/xuexiangjys/XPage/wiki
  *
  * @author xuexiang
- * @since 2018/5/25 下午3:44
+ * @since 2018/5/25 PM3:44
  */
 @Suppress("MemberVisibilityCanBePrivate", "EmptyMethod")
 abstract class BaseFragment<Binding : ViewBinding?> : XPageFragment() {
@@ -51,10 +51,10 @@ abstract class BaseFragment<Binding : ViewBinding?> : XPageFragment() {
     }
 
     /**
-     * 构建ViewBinding
+     * Create the ViewBinding
      *
      * @param inflater  inflater
-     * @param container 容器
+     * @param container Container
      * @return ViewBinding
      */
     protected abstract fun viewBindingInflate(
@@ -85,9 +85,9 @@ abstract class BaseFragment<Binding : ViewBinding?> : XPageFragment() {
     override fun initListeners() {}
 
     /**
-     * 获取进度条加载者
+     * Get the progress indicator loader
      *
-     * @return 进度条加载者
+     * @return Progress indicator loader
      */
     val progressLoader: IProgressLoader?
         get() {
@@ -98,10 +98,10 @@ abstract class BaseFragment<Binding : ViewBinding?> : XPageFragment() {
         }
 
     /**
-     * 获取进度条加载者
+     * Get the progress indicator loader
      *
-     * @param message 提示信息
-     * @return 进度条加载者
+     * @param message Message
+     * @return Progress indicator loader
      */
     fun getProgressLoader(message: String?): IProgressLoader? {
         if (mIProgressLoader == null) {
@@ -113,7 +113,7 @@ abstract class BaseFragment<Binding : ViewBinding?> : XPageFragment() {
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
-        //屏幕旋转时刷新一下title
+        //Refresh the title on screen rotation
         super.onConfigurationChanged(newConfig)
         val root = rootView as ViewGroup
         if (root.getChildAt(0) is TitleBar) {
@@ -139,11 +139,11 @@ abstract class BaseFragment<Binding : ViewBinding?> : XPageFragment() {
         super.onPause()
         MobclickAgent.onPageEnd(pageName)
     }
-    //==============================页面跳转api===================================//
+    //==============================Page navigation API===================================//
     /**
-     * 打开一个新的页面【建议只在主tab页使用】
+     * Open a new page (recommended only from the main tab)
      *
-     * @param clazz 页面的类
+     * @param clazz Page class
      * @param <T>
      * @return
     </T> */
@@ -154,9 +154,9 @@ abstract class BaseFragment<Binding : ViewBinding?> : XPageFragment() {
     }
 
     /**
-     * 打开一个新的页面【建议只在主tab页使用】
+     * Open a new page (recommended only from the main tab)
      *
-     * @param pageName 页面名
+     * @param pageName Page name
      * @param <T>
      * @return
     </T> */
@@ -168,10 +168,10 @@ abstract class BaseFragment<Binding : ViewBinding?> : XPageFragment() {
     }
 
     /**
-     * 打开一个新的页面【建议只在主tab页使用】
+     * Open a new page (recommended only from the main tab)
      *
-     * @param clazz                页面的类
-     * @param containActivityClazz 页面容器
+     * @param clazz                Page class
+     * @param containActivityClazz Page container
      * @param <T>
      * @return
     </T> */
@@ -186,11 +186,11 @@ abstract class BaseFragment<Binding : ViewBinding?> : XPageFragment() {
     }
 
     /**
-     * 打开一个新的页面【建议只在主tab页使用】
+     * Open a new page (recommended only from the main tab)
      *
-     * @param clazz 页面的类
-     * @param key   入参的键
-     * @param value 入参的值
+     * @param clazz Page class
+     * @param key   Argument key
+     * @param value Argument value
      * @param <T>
      * @return
     </T> */
@@ -241,12 +241,12 @@ abstract class BaseFragment<Binding : ViewBinding?> : XPageFragment() {
     }
 
     /**
-     * 打开页面
+     * Open a page
      *
-     * @param clazz          页面的类
-     * @param addToBackStack 是否加入回退栈
-     * @param key            入参的键
-     * @param value          入参的值
+     * @param clazz          Page class
+     * @param addToBackStack Whether to add to the back stack
+     * @param key            Argument key
+     * @param value          Argument value
      * @param <T>
      * @return
     </T> */
@@ -263,11 +263,11 @@ abstract class BaseFragment<Binding : ViewBinding?> : XPageFragment() {
     }
 
     /**
-     * 打开页面
+     * Open a page
      *
-     * @param clazz 页面的类
-     * @param key   入参的键
-     * @param value 入参的值
+     * @param clazz Page class
+     * @param key   Argument key
+     * @param value Argument value
      * @param <T>
      * @return
     </T> */
@@ -276,12 +276,12 @@ abstract class BaseFragment<Binding : ViewBinding?> : XPageFragment() {
     }
 
     /**
-     * 打开页面
+     * Open a page
      *
-     * @param clazz          页面的类
-     * @param addToBackStack 是否加入回退栈
-     * @param key            入参的键
-     * @param value          入参的值
+     * @param clazz          Page class
+     * @param addToBackStack Whether to add to the back stack
+     * @param key            Argument key
+     * @param value          Argument value
      * @param <T>
      * @return
     </T> */
@@ -296,11 +296,11 @@ abstract class BaseFragment<Binding : ViewBinding?> : XPageFragment() {
     }
 
     /**
-     * 打开页面
+     * Open a page
      *
-     * @param clazz 页面的类
-     * @param key   入参的键
-     * @param value 入参的值
+     * @param clazz Page class
+     * @param key   Argument key
+     * @param value Argument value
      * @param <T>
      * @return
     </T> */
@@ -311,12 +311,12 @@ abstract class BaseFragment<Binding : ViewBinding?> : XPageFragment() {
     }
 
     /**
-     * 打开页面,需要结果返回
+     * Open a page and expect a result
      *
-     * @param clazz       页面的类
-     * @param key         入参的键
-     * @param value       入参的值
-     * @param requestCode 请求码
+     * @param clazz       Page class
+     * @param key         Argument key
+     * @param value       Argument value
+     * @param requestCode Request code
      * @param <T>
      * @return
     </T> */
@@ -331,12 +331,12 @@ abstract class BaseFragment<Binding : ViewBinding?> : XPageFragment() {
     }
 
     /**
-     * 打开页面,需要结果返回
+     * Open a page and expect a result
      *
-     * @param clazz       页面的类
-     * @param key         入参的键
-     * @param value       入参的值
-     * @param requestCode 请求码
+     * @param clazz       Page class
+     * @param key         Argument key
+     * @param value       Argument value
+     * @param requestCode Request code
      * @param <T>
      * @return
     </T> */
@@ -353,10 +353,10 @@ abstract class BaseFragment<Binding : ViewBinding?> : XPageFragment() {
     }
 
     /**
-     * 打开页面,需要结果返回
+     * Open a page and expect a result
      *
-     * @param clazz       页面的类
-     * @param requestCode 请求码
+     * @param clazz       Page class
+     * @param requestCode Request code
      * @param <T>
      * @return
     </T> */
@@ -367,10 +367,10 @@ abstract class BaseFragment<Binding : ViewBinding?> : XPageFragment() {
     }
 
     /**
-     * 序列化对象
+     * Serialize an object
      *
-     * @param object 需要序列化的对象
-     * @return 序列化结果
+     * @param object Object to serialize
+     * @return Serialization result
      */
     fun serializeObject(`object`: Any?): String {
         return XRouter.getInstance().navigation(SerializationService::class.java)
@@ -378,11 +378,11 @@ abstract class BaseFragment<Binding : ViewBinding?> : XPageFragment() {
     }
 
     /**
-     * 反序列化对象
+     * Deserialize an object
      *
-     * @param input 反序列化的内容
-     * @param clazz 类型
-     * @return 反序列化结果
+     * @param input Content to deserialize
+     * @param clazz Type
+     * @return Deserialization result
      */
     fun <T> deserializeObject(input: String?, clazz: Type?): T {
         return XRouter.getInstance().navigation(SerializationService::class.java)
@@ -393,7 +393,7 @@ abstract class BaseFragment<Binding : ViewBinding?> : XPageFragment() {
         if (activity == null) {
             return
         }
-        // 记住，要在xml的父布局加上android:focusable="true" 和 android:focusableInTouchMode="true"
+        // Remember to add the following to the parent XML layout:android:focusable="true" and android:focusableInTouchMode="true"
         Utils.hideSoftInputClearFocus(requireActivity().currentFocus)
     }
 }

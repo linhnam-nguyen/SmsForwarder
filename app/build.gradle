@@ -15,9 +15,9 @@ plugins {
 
 /**
  * ================================
- * XAOP / AspectJ 开关
- * 只在 release 启用
- * debug / test 全部关闭（避免 Windows 文件锁）
+ * XAOP / AspectJ switch
+ * Enable only for release builds
+ * Disable for debug/test to avoid Windows file locks
  * ================================
  */
 ext.enableXaop = gradle.startParameter.taskNames.any { name ->
@@ -31,12 +31,12 @@ if (keyPropsFile.exists()) {
     keyProps.load(new FileInputStream(keyPropsFile))
 }
 
-//打包时，记得设置true启用
+//Set to true when packaging
 if (isNeedPackage.toBoolean() && isUseBooster.toBoolean()) {
     apply plugin: 'com.didiglobal.booster'
 }
 
-// 禁止 Java 编译器显示过时 API 警告
+// Suppress Java compiler deprecation warnings
 gradle.projectsEvaluated {
     tasks.withType(JavaCompile).configureEach {
         options.compilerArgs << "-Xlint:-removal"
@@ -60,11 +60,11 @@ android {
         viewBinding true
     }
 
-    //编译日期
+    //Build date
     def buildDate = new Date().format("yyMMdd", TimeZone.getTimeZone("GMT+08"))
-    //编译时间
+    //Build time
     def buildTime = new Date().format("yyyy-MM-dd HH:mm:ss", TimeZone.getTimeZone("GMT+08"))
-    //Git 的 Commit ID
+    //Git commit ID
     def gitCommitId = getGitCommitId()
 
     defaultConfig {
@@ -108,14 +108,14 @@ android {
 
     buildTypes {
         release {
-            // 调试模式开关
+            // Debug mode switch
             debuggable false
             jniDebuggable false
-            // 移除无用的资源
+            // Remove unused resources
             shrinkResources true
-            // 代码混淆开关
+            // Code obfuscation switch
             minifyEnabled true
-            // 混淆配置
+            // Obfuscation configuration
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             if (isNeedPackage.toBoolean()) {
                 signingConfig signingConfigs.release
@@ -136,17 +136,17 @@ android {
                 buildConfigField "String", "APP_ID_UMENG", '"60254fc7425ec25f10f4293e"'
             }
 
-            // 屏蔽 R8 stack map warning
+            // Suppress R8 stack map warnings
             buildConfigField "boolean", "DISABLE_R8_WARNINGS", "true"
         }
         debug {
-            // 调试模式开关
+            // Debug mode switch
             debuggable true
             jniDebuggable true
-            // Debug 构建不执行资源压缩和代码混淆，避免不必要的资源中间产物重建。
+            // Disable resource shrinking and obfuscation in debug builds to avoid rebuilding intermediate resources.
             shrinkResources false
             minifyEnabled false
-            // 混淆配置
+            // Obfuscation configuration
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             if (isNeedPackage.toBoolean()) {
                 signingConfig signingConfigs.release
@@ -167,12 +167,12 @@ android {
                 buildConfigField "String", "APP_ID_UMENG", '"60254fc7425ec25f10f4293e"'
             }
 
-            // 屏蔽 R8 stack map warning
+            // Suppress R8 stack map warnings
             buildConfigField "boolean", "DISABLE_R8_WARNINGS", "true"
         }
     }
 
-    //ABI配置——按CPU架构分别打包
+    //ABI configuration: package separately by CPU architecture
     splits {
         abi {
             enable true
@@ -183,7 +183,7 @@ android {
     }
     def abiCodes = ['universal': 1, 'armeabi-v7a': 2, 'arm64-v8a': 3, 'x86': 4, 'x86_64': 5]
     packagingOptions {
-        //去除FrpcLib的so，用时下载并动态加载
+        //Exclude FrpcLib shared objects; download and load dynamically when needed
         if (excludeFrpclib.toBoolean()) {
             exclude 'lib/armeabi-v7a/libgojni.so'
             exclude 'lib/arm64-v8a/libgojni.so'
@@ -210,7 +210,7 @@ android {
             output.versionCodeOverride = abiCodes.get(abiName, 0) * 100000 + variant.versionCode
             output.outputFileName = "SmsF_${versionName}_${output.versionCode}_${abiName}_${variant.name}.apk"
 
-            // 修改 output-metadata.json 追加编译日期、编译时间、Git Commit ID
+            // Append build date, build time and Git commit ID to output-metadata.json
             def assembleTaskName = "assemble${variant.name.capitalize()}"
             tasks.named(assembleTaskName) {
                 doLast {
@@ -242,7 +242,7 @@ android {
     namespace 'cn.ppps.forwarder'
 
     /**
-     * ⚠️ Windows + XAOP 下，避免 debug/test 触发 clean
+     * ⚠️ Avoid triggering clean in debug/test with Windows and XAOP
      */
     if (isNeedClean.toBoolean() && enableXaop) {
         preBuild.dependsOn clean
@@ -251,7 +251,7 @@ android {
 
 /**
  * ================================
- * XAOP 兜底：非 release 禁用所有 XAOP / AspectJ Task
+ * XAOP fallback: disable all XAOP/AspectJ tasks outside release builds
  * ================================
  */
 afterEvaluate {
@@ -268,7 +268,7 @@ afterEvaluate {
 }
 
 /**
- * 单元测试强制关闭 XAOP
+ * Force XAOP off for unit tests
  */
 tasks.withType(Test).configureEach {
     systemProperty "xaop.enable", "false"
@@ -279,7 +279,7 @@ dependencies {
     //frpc
     implementation files('libs/frpclib.aar')
 
-    //MQTT协议
+    //MQTT protocol
     implementation("org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.5")
 
     testImplementation deps.junit
@@ -297,31 +297,31 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.preference:preference-ktx:1.2.1'
 
-    //分包
+    //Multidex
     implementation deps.androidx.multidex
 
     //vLayout：https://github.com/alibaba/vlayout
     implementation 'com.alibaba.android:vlayout:1.3.0'
-    //下拉刷新
+    //Pull to refresh
     implementation 'com.github.xuexiangjys.SmartRefreshLayout:refresh-header:1.1.6'
     implementation 'com.github.xuexiangjys.SmartRefreshLayout:refresh-layout:1.1.6'
     //WebView
     implementation 'com.github.xuexiangjys.AgentWeb:agentweb-core:1.0.1'
-    implementation 'com.github.xuexiangjys.AgentWeb:agentweb-download:1.0.1'//选填
-    //屏幕适配AutoSize：https://github.com/JessYanCoding/AndroidAutoSize
+    implementation 'com.github.xuexiangjys.AgentWeb:agentweb-download:1.0.1'//Optional
+    //Screen adaptation with AutoSize：https://github.com/JessYanCoding/AndroidAutoSize
     implementation 'me.jessyan:autosize:1.2.1'
-    //友盟统计
+    //Umeng Analytics
     implementation 'com.umeng.umsdk:common:9.8.9'
     implementation 'com.umeng.umsdk:asms:1.8.7.2'
     implementation 'com.umeng.umsdk:uyumao:1.1.4'
 
-    //预加载占位控件
+    //Preload placeholder widgets
     implementation 'me.samlss:broccoli:1.0.0'
 
     //RichText：https://github.com/zzhoujay/RichText
     implementation 'com.zzhoujay.richtext:richtext:3.0.8'
 
-    //美团多渠道打包
+    //Meituan multi-channel packaging
     //implementation 'com.meituan.android.walle:library:1.1.6'
 
     def work_version = '2.8.1'
@@ -368,41 +368,41 @@ dependencies {
     //noinspection GradleDependency
     testImplementation "androidx.paging:paging-common-ktx:$paging_version"
 
-    //权限请求框架：https://github.com/getActivity/XXPermissions
+    //Permission request framework：https://github.com/getActivity/XXPermissions
     implementation 'com.github.getActivity:XXPermissions:28.0'
-    //语种切换框架：https://github.com/getActivity/MultiLanguages
+    //Language switching framework：https://github.com/getActivity/MultiLanguages
     implementation 'com.github.getActivity:MultiLanguages:10.2'
 
     // https://jakartaee.github.io/mail-api/Android
     implementation "com.sun.mail:jakarta.mail:2.0.2"
     implementation "com.sun.activation:jakarta.activation:2.0.1"
 
-    //国密算法SM4 的JAVA实现(基于BC实现)
+    //Java implementation of the SM4 algorithm (based on Bouncy Castle)
     def bouncycastle_version = '1.77'
     //noinspection GradleDependency
     api "org.bouncycastle:bcprov-jdk18on:$bouncycastle_version"
-    //邮件 S/MIME 加密和签名
-    //implementation "org.spongycastle:bcmail-jdk18on:$bouncycastle_version" //Android下报错
+    //Email S/MIME encryption and signing
+    //implementation "org.spongycastle:bcmail-jdk18on:$bouncycastle_version" //Fails on Android
     //noinspection GradleDependency
     implementation "org.bouncycastle:bcpkix-jdk18on:$bouncycastle_version"
     //implementation "org.bouncycastle:bctls-jdk18on:$bouncycastle_version"
-    //邮件 PGP 加密和签名
-    //implementation "org.bouncycastle:bcpg-jdk18on:$bouncycastle_version" //Thunderbird无法解密
+    //Email PGP encryption and signing
+    //implementation "org.bouncycastle:bcpg-jdk18on:$bouncycastle_version" //Thunderbird cannot decrypt
     //PGPainless: https://github.com/pgpainless/pgpainless
     //noinspection GradleDependency
     implementation 'org.pgpainless:pgpainless-core:1.6.7'
     //OpenKeychain OpenPGP API：https://github.com/open-keychain/openpgp-api
     implementation 'org.sufficientlysecure:openpgp-api:10.0'
 
-    //Android Keep Alive(安卓保活)，Cactus 集成双进程前台服务，JobScheduler，onePix(一像素)，WorkManager，无声音乐
+    //Android keep-alive: Cactus integrates dual-process foreground services, JobScheduler, onePix (one pixel), WorkManager and silent audio
     //https://github.com/gyf-dev/Cactus
     implementation 'com.gyf.cactus:cactus:1.1.3-beta13'
 
-    //HTTP服务器：https://github.com/yanzhenjie/AndServer
+    //HTTP server：https://github.com/yanzhenjie/AndServer
     implementation 'cn.ppps.andserver:api:2.1.12'
     kapt 'cn.ppps.andserver:processor:2.1.12'
 
-    //Location 是一个通过 Android 自带的 LocationManager 来实现的定位功能：https://github.com/jenly1314/Location
+    //Location implements positioning using Android's built-in LocationManager：https://github.com/jenly1314/Location
     implementation 'com.github.pppscn:location:1.0.0'
 
     //Partial implementation of Quartz Cron Java for Android: https://github.com/gatewayapps/crondroid
@@ -410,15 +410,15 @@ dependencies {
     //Java Parser For Cron Expressions: https://github.com/grahamar/cron-parser
     implementation 'net.redhogs.cronparser:cron-parser-core:3.5'
 
-    //侧边栏菜单：https://github.com/yarolegovich/SlidingRootNav
+    //Sidebar menu：https://github.com/yarolegovich/SlidingRootNav
     implementation 'com.yarolegovich:sliding-root-nav:1.1.1'
 }
-//自动添加X-Library依赖
+//Automatically add X-Library dependencies
 apply from: 'x-library.gradle'
-//walle多渠道打包
+//Walle multi-channel packaging
 //apply from: 'multiple-channel.gradle'
 
-//获取 commit ID
+//Get commit ID
 def getGitCommitId() {
     try {
         def proc = ['git', 'rev-parse', '--short', 'HEAD'].execute(null, rootDir)

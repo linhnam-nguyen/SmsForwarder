@@ -76,12 +76,12 @@ class MainActivity : BaseActivity<ActivityMainBinding?>(), DrawerAdapter.OnItemS
     private val POS_RULE = 1
     private val POS_SENDER = 2
     private val POS_SETTING = 3
-    private val POS_TASK = 5 //4为空行
+    private val POS_TASK = 5 //Index 4 is an empty row
     private val POS_SERVER = 6
     private val POS_CLIENT = 7
     private val POS_FRPC = 8
     private val POS_APPS = 9
-    private val POS_HELP = 11 //10为空行
+    private val POS_HELP = 11 //Index 10 is an empty row
     private val POS_ABOUT = 12
     private var needToAppListFragment = false
 
@@ -103,7 +103,7 @@ class MainActivity : BaseActivity<ActivityMainBinding?>(), DrawerAdapter.OnItemS
         initViews()
         initSlidingMenu(savedInstanceState)
 
-        //不在最近任务列表中显示
+        //Hide from the recent tasks list
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && SettingUtils.enableExcludeFromRecents) {
             val am = App.context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
             am.let {
@@ -114,7 +114,7 @@ class MainActivity : BaseActivity<ActivityMainBinding?>(), DrawerAdapter.OnItemS
             }
         }
 
-        //检查通知权限是否获取
+        //Check whether notification permission is granted
         XXPermissions.with(this)
             .permission(PermissionLists.getNotificationServicePermission())
             .permission(PermissionLists.getPostNotificationsPermission())
@@ -125,7 +125,7 @@ class MainActivity : BaseActivity<ActivityMainBinding?>(), DrawerAdapter.OnItemS
                         XToastUtils.error(R.string.tips_notification)
                         return
                     }
-                    //启动前台服务
+                    //Start the foreground service
                     if (!ForegroundService.isRunning) {
                         val serviceIntent = Intent(getTopActivity(), ForegroundService::class.java)
                         serviceIntent.action = ACTION_START
@@ -138,7 +138,7 @@ class MainActivity : BaseActivity<ActivityMainBinding?>(), DrawerAdapter.OnItemS
                 }
             })
 
-        //监听已安装App信息列表加载完成事件
+        //Observe completion of the installed app list load
         LiveEventBus.get(EVENT_LOAD_APP_LIST, String::class.java).observe(this) {
             if (needToAppListFragment) {
                 openNewPage(AppListFragment::class.java)
@@ -183,14 +183,14 @@ class MainActivity : BaseActivity<ActivityMainBinding?>(), DrawerAdapter.OnItemS
         mMenuTitles = ResUtils.getStringArray(this, R.array.menu_titles)
         mMenuIcons = ResUtils.getDrawableArray(this, R.array.menu_icons)
 
-        //仅当开启自动检查且有网络时自动检查更新/获取提示
+        //Check updates and retrieve tips only when automatic checks are enabled and a network is available
         if (SettingUtils.autoCheckUpdate && NetworkUtils.isHaveInternet()) {
             showTips(this)
             XUpdateInit.checkUpdate(this, false, SettingUtils.joinPreviewProgram)
         }
     }
 
-    //按返回键不退出回到桌面
+    //Pressing Back returns to the home screen without exiting
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         val intent = Intent(Intent.ACTION_MAIN)
@@ -286,23 +286,23 @@ class MainActivity : BaseActivity<ActivityMainBinding?>(), DrawerAdapter.OnItemS
             }
 
             POS_APPS -> {
-                //检查读取应用列表权限是否获取
+                //Check whether permission to read the app list is granted
                 XXPermissions.with(this)
                     .permission(PermissionLists.getGetInstalledAppsPermission())
                     .request(object : OnPermissionCallback {
                         override fun onResult(grantedList: MutableList<IPermission>, deniedList: MutableList<IPermission>) {
                             val allGranted = deniedList.isEmpty()
                             if (!allGranted) {
-                                // 判断请求失败的权限是否被用户勾选了不再询问的选项
+                                // Check whether the user chose not to be asked again for a denied permission
                                 val doNotAskAgain = XXPermissions.isDoNotAskAgainPermissions(getTopActivity(), deniedList)
                                 if (doNotAskAgain) {
                                     XXPermissions.startPermissionActivity(getContext(), deniedList)
                                 }
-                                // 处理权限请求失败的逻辑
+                                // Handle denied permissions
                                 XToastUtils.error(R.string.tips_get_installed_apps)
                                 return
                             }
-                            // 处理权限请求成功的逻辑
+                            // Handle granted permissions
                             if (App.UserAppList.isEmpty() && App.SystemAppList.isEmpty()) {
                                 XToastUtils.info(getString(R.string.loading_app_list))
                                 val request = OneTimeWorkRequestBuilder<LoadAppListWorker>().build()
@@ -328,7 +328,7 @@ class MainActivity : BaseActivity<ActivityMainBinding?>(), DrawerAdapter.OnItemS
             .withSelectedTextTint(ThemeUtils.getMainThemeColor(this))
     }
 
-    //动态加载FrpcLib
+    //Load FrpcLib dynamically
     private fun downloadFrpcLib() {
         val cpuAbi = when (Build.CPU_ABI) {
             "x86" -> "x86"

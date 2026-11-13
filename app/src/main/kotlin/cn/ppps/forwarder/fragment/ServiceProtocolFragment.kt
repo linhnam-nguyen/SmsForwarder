@@ -12,7 +12,7 @@ import com.xuexiang.xui.widget.actionbar.TitleBar
 import com.xuexiang.xutil.resource.ResourceUtils
 
 /**
- * 服务协议【本地加载】
+ * Service agreement (loaded locally)
  *
  * @author xuexiang
  * @since 2021/5/18 1:35 AM
@@ -44,7 +44,7 @@ class ServiceProtocolFragment : BaseFragment<FragmentServiceProtocolBinding?>() 
     }
 
     /**
-     * 初始化控件
+     * Initialize widgets
      */
     override fun initViews() {
         if (title == getString(R.string.title_user_protocol)) {

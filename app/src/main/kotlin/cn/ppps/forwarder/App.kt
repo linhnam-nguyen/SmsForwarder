@@ -57,7 +57,6 @@ import com.gyf.cactus.Cactus
 import com.gyf.cactus.callback.CactusCallback
 import com.gyf.cactus.ext.cactus
 import com.hjq.language.MultiLanguages
-import com.hjq.language.OnLanguageListener
 import com.king.location.LocationClient
 import com.xuexiang.xutil.file.FileUtils
 import frpclib.Frpclib
@@ -95,7 +94,7 @@ class App : Application(), CactusCallback, Configuration.Provider by Core {
         @SuppressLint("StaticFieldLeak")
         lateinit var context: Context
 
-        //自定义模板可用变量标签
+        //Variable tags available in custom templates
         var COMMON_TAG_MAP: MutableMap<String, String> = mutableMapOf()
         var SMS_TAG_MAP: MutableMap<String, String> = mutableMapOf()
         var CALL_TAG_MAP: MutableMap<String, String> = mutableMapOf()
@@ -104,7 +103,7 @@ class App : Application(), CactusCallback, Configuration.Provider by Core {
         var BATTERY_TAG_MAP: MutableMap<String, String> = mutableMapOf()
         var NETWORK_TAG_MAP: MutableMap<String, String> = mutableMapOf()
 
-        //通话类型：1.来电挂机 2.去电挂机 3.未接来电 4.来电提醒 5.来电接通 6.去电拨出
+        //Call types: 1. incoming ended; 2. outgoing ended; 3. missed; 4. incoming ringing; 5. incoming answered; 6. outgoing dialing
         var CALL_TYPE_MAP: MutableMap<String, String> = mutableMapOf()
         var FILED_MAP: MutableMap<String, String> = mutableMapOf()
         var CHECK_MAP: MutableMap<String, String> = mutableMapOf()
@@ -113,50 +112,50 @@ class App : Application(), CactusCallback, Configuration.Provider by Core {
         var BARK_LEVEL_MAP: MutableMap<String, String> = mutableMapOf()
         var BARK_ENCRYPTION_ALGORITHM_MAP: MutableMap<String, String> = mutableMapOf()
 
-        //已插入SIM卡信息
+        //Inserted SIM card information
         var SimInfoList: MutableMap<Int, SimInfo> = mutableMapOf()
 
-        //已安装App信息
+        //Installed app information
         var LoadingAppList = false
         var UserAppList: MutableList<AppInfo> = mutableListOf()
         var SystemAppList: MutableList<AppInfo> = mutableListOf()
 
         /**
-         * @return 当前app是否是调试开发模式
+         * @return Whether the app is running in development debug mode
          */
         var isDebug: Boolean = BuildConfig.DEBUG
 
-        //Cactus相关
-        val mEndDate = MutableLiveData<String>() //结束时间
-        val mLastTimer = MutableLiveData<String>() //上次存活时间
-        val mTimer = MutableLiveData<String>() //存活时间
-        val mStatus = MutableLiveData<Boolean>().apply { value = true } //运行状态
+        //Cactus-related state
+        val mEndDate = MutableLiveData<String>() //End time
+        val mLastTimer = MutableLiveData<String>() //Previous uptime
+        val mTimer = MutableLiveData<String>() //Uptime
+        val mStatus = MutableLiveData<Boolean>().apply { value = true } //Running status
         var mDisposable: Disposable? = null
 
-        //Location相关
+        //Location-related state
         val LocationClient by lazy { LocationClient(context) }
         val Geocoder by lazy { Geocoder(context) }
         val DateFormat by lazy { SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()) }
 
-        //Frpclib是否已经初始化
+        //Whether Frpclib has been initialized
         var FrpclibInited = false
 
-        //是否需要在拼接字符串时添加空格
+        //Whether to insert spaces when concatenating strings
         var isNeedSpaceBetweenWords = false
     }
 
     override fun attachBaseContext(base: Context) {
         //super.attachBaseContext(base)
-        // 绑定语种
+        // Attach the app locale
         super.attachBaseContext(MultiLanguages.attach(base))
-        //解决4.x运行崩溃的问题
+        //Fix crashes on Android 4.x
         MultiDex.install(this)
     }
 
     override fun onCreate() {
         super.onCreate()
 
-        // 设置全局异常捕获
+        // Set up global exception handling
         val defaultHandler = Thread.getDefaultUncaughtExceptionHandler()
         Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->
             throwable.printStackTrace()
@@ -173,7 +172,7 @@ class App : Application(), CactusCallback, Configuration.Provider by Core {
             } catch (ex: IOException) {
                 ex.printStackTrace()
             }
-            //使用默认的处理方式让APP停止运行
+            //Use the default handler to terminate the app
             defaultHandler?.uncaughtException(thread, throwable)
         }
 
@@ -181,13 +180,13 @@ class App : Application(), CactusCallback, Configuration.Provider by Core {
             context = applicationContext
             initLibs()
 
-            //纯客户端模式
+            //Client-only mode
             if (SettingUtils.enablePureClientMode) return
 
-            //初始化WorkManager
+            //Initialize WorkManager
             WorkManager.initialize(this, Configuration.Builder().build())
 
-            //动态加载FrpcLib
+            //Load FrpcLib dynamically
             val libPath = filesDir.absolutePath + "/libs"
             val soFile = File(libPath)
             if (soFile.exists()) {
@@ -199,7 +198,7 @@ class App : Application(), CactusCallback, Configuration.Provider by Core {
                 }
             }
 
-            //启动前台服务
+            //Start the foreground service
             val foregroundServiceIntent = Intent(this, ForegroundService::class.java)
             foregroundServiceIntent.action = ACTION_START
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -208,27 +207,27 @@ class App : Application(), CactusCallback, Configuration.Provider by Core {
                 startService(foregroundServiceIntent)
             }
 
-            //启动HttpServer
-            //"校验签名"模式下密钥为空时拒绝自启，避免开机即处于未认证状态
+            //Start HttpServer
+            //Do not auto-start in signature verification mode when the key is empty, preventing unauthenticated startup
             if (HttpServerUtils.enableServerAutorun && (HttpServerUtils.safetyMeasures != 1 || HttpServerUtils.isSignKeyConfigured())) {
                 Intent(this, HttpServerService::class.java).also {
                     startService(it)
                 }
             }
 
-            //启动LocationService
+            //Start LocationService
             if (SettingUtils.enableLocation) {
                 val locationServiceIntent = Intent(this, LocationService::class.java)
                 locationServiceIntent.action = ACTION_START
                 startService(locationServiceIntent)
             }
 
-            //监听电量&充电状态变化
+            //Observe battery level and charging state
             val batteryReceiver = BatteryReceiver()
             val batteryFilter = IntentFilter(Intent.ACTION_BATTERY_CHANGED)
             registerReceiver(batteryReceiver, batteryFilter)
 
-            //监听蓝牙状态变化
+            //Observe Bluetooth state changes
             val bluetoothReceiver = BluetoothReceiver()
             val filter = IntentFilter().apply {
                 addAction(BluetoothDevice.ACTION_FOUND)
@@ -248,7 +247,7 @@ class App : Application(), CactusCallback, Configuration.Provider by Core {
                 startService(bluetoothScanServiceIntent)
             }
 
-            //监听网络变化
+            //Observe network changes
             val networkReceiver = NetworkChangeReceiver()
             val networkFilter = IntentFilter().apply {
                 addAction(ConnectivityManager.CONNECTIVITY_ACTION)
@@ -258,7 +257,7 @@ class App : Application(), CactusCallback, Configuration.Provider by Core {
             }
             registerReceiver(networkReceiver, networkFilter)
 
-            //监听锁屏&解锁
+            //Observe screen lock and unlock
             val lockScreenReceiver = LockScreenReceiver()
             val lockScreenFilter = IntentFilter().apply {
                 addAction(Intent.ACTION_SCREEN_OFF)
@@ -266,53 +265,53 @@ class App : Application(), CactusCallback, Configuration.Provider by Core {
                 addAction(Intent.ACTION_USER_PRESENT)
             }
             registerReceiver(lockScreenReceiver, lockScreenFilter)
-            //靠近听筒关屏
+            //Turn off the screen when close to the earpiece
             ProximitySensorScreenHelper.refresh(this)
-            //Cactus 集成双进程前台服务，JobScheduler，onePix(一像素)，WorkManager，无声音乐
+            //Cactus integrates dual-process foreground services, JobScheduler, onePix (one pixel), WorkManager and silent audio
             if (SettingUtils.enableCactus) {
-                //注册广播监听器
+                //Register broadcast listeners
                 registerReceiver(CactusReceiver(), IntentFilter().apply {
                     addAction(Cactus.CACTUS_WORK)
                     addAction(Cactus.CACTUS_STOP)
                     addAction(Cactus.CACTUS_BACKGROUND)
                     addAction(Cactus.CACTUS_FOREGROUND)
                 })
-                //设置通知栏点击事件
+                //Set the notification click handler
                 val activityIntent = Intent(this, MainActivity::class.java)
                 val flags = if (Build.VERSION.SDK_INT >= 30) PendingIntent.FLAG_IMMUTABLE else PendingIntent.FLAG_UPDATE_CURRENT
                 val pendingIntent = PendingIntent.getActivity(this, 0, activityIntent, flags)
                 cactus {
-                    setServiceId(FRONT_NOTIFY_ID) //服务Id
-                    setChannelId(FRONT_CHANNEL_ID) //渠道Id
-                    setChannelName(FRONT_CHANNEL_NAME) //渠道名
+                    setServiceId(FRONT_NOTIFY_ID) //Service ID
+                    setChannelId(FRONT_CHANNEL_ID) //Channel ID
+                    setChannelName(FRONT_CHANNEL_NAME) //Channel name
                     setTitle(getString(R.string.app_name))
                     setContent(SettingUtils.notifyContent)
                     setSmallIcon(R.drawable.ic_forwarder)
                     setLargeIcon(R.mipmap.ic_launcher)
                     setPendingIntent(pendingIntent)
-                    //无声音乐
+                    //Silent audio
                     if (SettingUtils.enablePlaySilenceMusic) {
                         setMusicEnabled(true)
                         setBackgroundMusicEnabled(true)
                         setMusicId(R.raw.silence)
-                        //设置音乐间隔时间，时间间隔越长，越省电
+                        //Set the audio interval; longer intervals save power
                         setMusicInterval(SettingUtils.musicInterval.toLong())
                         isDebug(true)
                     }
-                    //是否可以使用一像素，默认可以使用，只有在android p以下可以使用
+                    //Enable the one-pixel technique by default; available only below Android P
                     if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P && SettingUtils.enableOnePixelActivity) {
                         setOnePixEnabled(true)
                     }
-                    //崩溃是否可以重启用户界面
+                    //Whether to restart the UI after a crash
                     setCrashRestartUIEnabled(true)
                     addCallback({
-                        Log.d(TAG, "Cactus保活：onStop回调")
+                        Log.d(TAG, "Cactus keep-alive: onStop callback")
                     }) {
-                        Log.d(TAG, "Cactus保活：doWork回调")
+                        Log.d(TAG, "Cactus keep-alive: doWork callback")
                     }
-                    //切后台切换回调
+                    //Foreground/background transition callback
                     addBackgroundCallback {
-                        Log.d(TAG, if (it) "SmsForwarder 切换到后台运行" else "SmsForwarder 切换到前台运行")
+                        Log.d(TAG, if (it) "SmsForwarder switched to the background" else "SmsForwarder switched to the foreground")
                     }
                 }
             }
@@ -324,46 +323,29 @@ class App : Application(), CactusCallback, Configuration.Provider by Core {
     }
 
     /**
-     * 初始化基础库
+     * Initialize foundational libraries
      */
     private fun initLibs() {
         Core.init(this)
-        // 配置文件初始化
+        // Initialize configuration
         SharedPreference.init(applicationContext)
-        // 服务端安全默认值迁移，必须早于任何服务端配置读取
+        // Migrate server security defaults before reading any server configuration
         SecurityDefaults.migrate()
-        // X系列基础库初始化
+        // Initialize the X-series libraries
         XBasicLibInit.init(this)
-        // 初始化日志打印
+        // Initialize logging
         isDebug = SettingUtils.enableDebugMode
         Log.init(applicationContext)
-        // 转发历史工具类初始化
+        // Initialize forwarding history utilities
         HistoryUtils.init(applicationContext)
-        // 版本更新初始化
+        // Initialize version updates
         XUpdateInit.init(this)
-        // 运营统计数据
+        // Usage analytics
         UMengInit.init(this)
-        // 初始化语种切换框架
+        // Force English, including upgrades from previously selected languages.
         MultiLanguages.init(this)
-        // 设置语种变化监听器
-        MultiLanguages.setOnLanguageListener(object : OnLanguageListener {
-            override fun onAppLocaleChange(oldLocale: Locale, newLocale: Locale) {
-                // 注意：只有setAppLanguage时触发，clearAppLanguage时不触发
-                Log.i(TAG, "监听到应用切换了语种，旧语种：$oldLocale，新语种：$newLocale")
-                switchLanguage(newLocale)
-            }
-
-            override fun onSystemLocaleChange(oldLocale: Locale, newLocale: Locale) {
-                Log.i(TAG, "监听到系统切换了语种，旧语种：$oldLocale，新语种：$newLocale")
-                switchLanguage(newLocale)
-                /*val isFlowSystem = SettingUtils.isFlowSystemLanguage //MultiLanguages.isSystemLanguage(context)取值不对，一直是false
-                Log.i(TAG, "监听到系统切换了语种，旧语种：$oldLocale，新语种：$newLocale，是否跟随系统：$isFlowSystem")
-                if (isFlowSystem) {
-                    CommonUtils.switchLanguage(oldLocale, newLocale)
-                }*/
-            }
-        })
-        switchLanguage(MultiLanguages.getAppLanguage(this))
+        MultiLanguages.setAppLanguage(this, Locale.ENGLISH)
+        initializeLocalizedValues()
     }
 
     @SuppressLint("CheckResult")
@@ -401,11 +383,11 @@ class App : Application(), CactusCallback, Configuration.Provider by Core {
         }
     }
 
-    //多语言切换时枚举常量自动切换语言
-    private fun switchLanguage(newLocale: Locale) {
-        isNeedSpaceBetweenWords = !newLocale.language.contains("zh")
+    // Initialize localized enum values
+    private fun initializeLocalizedValues() {
+        isNeedSpaceBetweenWords = true
 
-        //自定义模板可用变量标签
+        //Variable tags available in custom templates
         COMMON_TAG_MAP.clear()
         COMMON_TAG_MAP.putAll(
             mapOf(

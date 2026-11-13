@@ -2,15 +2,15 @@
 
 buildscript {
     apply from: './versions.gradle'
-    addRepos(repositories) //增加代码仓库
+    addRepos(repositories) //Add code repositories
     dependencies {
         classpath deps.android_gradle_plugin
         classpath deps.android_maven_gradle_plugin
-        //图片压缩
+        //Image compression
         classpath 'com.chenenyu:img-optimizer:1.3.0'
-        //美团多渠道打包
+        //Meituan multi-channel packaging
         //classpath 'com.meituan.android.walle:plugin:1.1.6'
-        //滴滴的质量优化框架
+        //Didi quality optimization framework
         if (isNeedPackage.toBoolean() && isUseBooster.toBoolean()) {
             classpath deps.booster.gradle_plugin
             classpath deps.booster.task_processed_res

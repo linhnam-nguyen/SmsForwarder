@@ -126,7 +126,7 @@
     <string name="lab_open_qq_app">Allow pages to open QQ apps?</string>
     <string name="lab_open_third_app">Allow pages to open third-party apps?</string>
 
-    <!-- 隐私政策弹窗   -->
+    <!-- Privacy policy dialog   -->
     <string name="lab_exit_app">Exit</string>
     <string name="lab_agree">Agree</string>
     <string name="lab_disagree">Disagree</string>
@@ -137,7 +137,7 @@
     <string name="content_privacy_explain_again">We attach great importance to the protection of your personal information, and promise to protect and process your information strictly in accordance with the \"%s Privacy Policy\". \n\nIf you do not agree to this policy, unfortunately we will not be able to serve you.</string>
     <string name="lab_privacy_name">\"%s Privacy Policy\"</string>
 
-    <!-- 登录   -->
+    <!-- Sign-in   -->
     <string name="title_user_protocol">User Agreement</string>
     <string name="title_privacy_protocol">Privacy Policy</string>
 
@@ -1219,14 +1219,6 @@
     <string name="specified_rule">Specified Rule</string>
     <string name="specified_sender">Specified Sender</string>
     <string name="specified_task">Specified Task</string>
-
-    <string name="multi_languages">Language</string>
-    <string name="multi_languages_tips">Choose the language displayed by SmsForwarder.</string>
-    <string name="multi_languages_toast">Restart the app to apply your selected language.</string>
-    <string name="follow_system">Follow system</string>
-    <string name="simplified_chinese">Simplified Chinese (简体中文)</string>
-    <string name="traditional_chinese">Traditional Chinese (繁體中文)</string>
-    <string name="english">English</string>
     <string name="log_export_failed">Log Export Failed!</string>
     <string name="log_export_success">Log exported successfully! Path:</string>
     <string name="all_auto_started_frpc">All auto-started Frpc</string>

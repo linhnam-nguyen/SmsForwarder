@@ -19,7 +19,7 @@ object TaskWorker {
     const val ACTION = "action"
 }
 
-//服务相关
+//Service constants
 const val ACTION_START = "START"
 const val ACTION_STOP = "STOP"
 const val ACTION_RESTART = "RESTART"
@@ -27,16 +27,16 @@ const val ACTION_STOP_ALARM = "STOP_ALARM"
 const val ACTION_UPDATE_NOTIFICATION = "UPDATE_NOTIFICATION"
 const val EXTRA_UPDATE_NOTIFICATION = "EXTRA_UPDATE_NOTIFICATION"
 
-//初始化相关
+//Initialization constants
 const val AUTO_CHECK_UPDATE = "auto_check_update"
 const val JOIN_PREVIEW_PROGRAM = "join_preview_program"
 const val IS_AGREE_PRIVACY_KEY = "is_agree_privacy_key"
 
-//数据库
+//Database
 const val DATABASE_NAME = "sms_forwarder.db"
 const val PACKAGE_NAME = "cn.ppps.forwarder"
 
-//通用设置
+//General settings
 const val SP_ENABLE_SMS = "enable_sms"
 
 const val SP_ENABLE_PHONE = "enable_phone"
@@ -105,7 +105,7 @@ const val CACTUS_LAST_TIMER = "cactus_last_timer"
 const val CACTUS_DATE = "cactus_date"
 const val CACTUS_END_DATE = "cactus_end_date"
 
-//规则相关
+//Rule constants
 const val STATUS_ON = 1
 const val STATUS_OFF = 0
 const val FILED_TRANSPOND_ALL = "transpond_all"
@@ -127,13 +127,13 @@ const val CHECK_SIM_SLOT_ALL = "ALL"
 const val CHECK_SIM_SLOT_1 = "SIM1"
 const val CHECK_SIM_SLOT_2 = "SIM2"
 
-//发送通道执行逻辑：ALL=全部执行, UntilFail=失败即终止, UntilSuccess=成功即终止
+//Sender execution: ALL=run all, UntilFail=stop on failure, UntilSuccess=stop on success
 const val SENDER_LOGIC_ALL = "ALL"
 const val SENDER_LOGIC_UNTIL_FAIL = "UntilFail"
 const val SENDER_LOGIC_UNTIL_SUCCESS = "UntilSuccess"
 const val SENDER_LOGIC_RETRY = "Retry"
 
-//发送通道
+//Sender channels
 const val TYPE_DINGTALK_GROUP_ROBOT = 0
 const val TYPE_EMAIL = 1
 const val TYPE_BARK = 2
@@ -151,12 +151,12 @@ const val TYPE_FEISHU_APP = 13
 const val TYPE_URL_SCHEME = 14
 const val TYPE_SOCKET = 15
 
-//前台服务
+//Foreground service
 const val FRONT_NOTIFY_ID = 0x1010
 const val FRONT_CHANNEL_ID = "cn.ppps.forwarder"
 const val FRONT_CHANNEL_NAME = "SmsForwarder Foreground Service"
 
-//Frp内网穿透
+//FRP reverse proxy
 const val FRPC_LIB_DOWNLOAD_URL = "https://xupdate.ppps.cn/uploads/%s/%s/libgojni.so"
 const val FRPC_LIB_VERSION = "0.57.0"
 const val EVENT_FRPC_UPDATE_CONFIG = "EVENT_FRPC_UPDATE_CONFIG"
@@ -166,10 +166,10 @@ const val EVENT_FRPC_RUNNING_SUCCESS = "EVENT_FRPC_RUNNING_SUCCESS"
 const val INTENT_FRPC_EDIT_FILE = "INTENT_FRPC_EDIT_FILE"
 const val INTENT_FRPC_APPLY_FILE = "INTENT_FRPC_APPLY_FILE"
 
-//声音警报
+//Audio alarm
 const val EVENT_ALARM_ACTION = "EVENT_ALARM_ACTION"
 
-//吐司监听
+//Toast listener
 const val EVENT_TOAST_SUCCESS = "key_toast_success"
 const val EVENT_TOAST_ERROR = "key_toast_error"
 const val EVENT_TOAST_INFO = "key_toast_info"
@@ -185,7 +185,7 @@ const val KEY_RULE_TYPE = "key_rule_type"
 const val KEY_RULE_CLONE = "key_rule_clone"
 const val KEY_DEFAULT_SELECTION = "key_default_selection"
 
-//转发规则测试弹窗填写内容缓存（key需拼接ruleType后缀区分）
+//Cache rule-test dialog input (append ruleType to the key to distinguish types)
 const val SP_RULE_TEST_SIM_SLOT = "rule_test_sim_slot_"
 const val SP_RULE_TEST_FROM = "rule_test_from_"
 const val SP_RULE_TEST_TITLE = "rule_test_title_"
@@ -201,22 +201,22 @@ const val EVENT_LOAD_APP_LIST = "EVENT_LOAD_APP_LIST"
 const val EVENT_KEY_SIM_SLOT = "EVENT_KEY_SIM_SLOT"
 const val EVENT_KEY_PHONE_NUMBERS = "EVENT_KEY_PHONE_NUMBERS"
 
-//在线升级&预览计划URL
+//Online update and preview program URLs
 const val KEY_UPDATE_URL = "https://xupdate.ppps.cn/update/checkVersion"
 const val KEY_PREVIEW_URL = "https://xupdate.ppps.cn/preview/checkVersion"
 
-//HttpServer相关
+//HTTP server constants
 const val HTTP_SERVER_PORT = 5000
 const val HTTP_SERVER_TIME_OUT = 10
 const val HTTP_SUCCESS_CODE: Int = 200
 const val HTTP_FAILURE_CODE: Int = 500
-//鉴权失败：签名缺失/失效、时间戳缺失/超容差
+//Authentication failure: missing or invalid signature, missing timestamp or timestamp outside tolerance
 const val HTTP_UNAUTHORIZED_CODE: Int = 401
-//服务端禁用此功能
+//Feature disabled on the server
 const val HTTP_FORBIDDEN_CODE: Int = 403
 const val SP_SERVER_PORT = "server_port"
 const val SP_SERVER_LOCAL_IP_ONLY = "server_local_ip_only"
-//安全默认配置迁移版本，升版后需要对应调整 SecurityDefaults.CURRENT_VERSION
+//Security defaults migration version; update SecurityDefaults.CURRENT_VERSION when increasing it
 const val SP_SECURITY_DEFAULTS_VERSION = "security_defaults_version"
 const val SP_ENABLE_SERVER_AUTORUN = "enable_server_autorun"
 const val SP_SERVER_SAFETY_MEASURES = "server_safety_measures"
@@ -245,8 +245,8 @@ const val SP_CLIENT_SAFETY_MEASURES = "client_safety_measures"
 const val SP_CLIENT_SIGN_KEY = "client_sign_key"
 
 
-//自动任务
-const val MAX_SETTING_NUM = 5 //最大条件/动作设置条数
+//Automated tasks
+const val MAX_SETTING_NUM = 5 //Maximum number of condition/action settings
 const val KEY_TEST_CONDITION = "key_test_condition"
 const val KEY_EVENT_DATA_CONDITION = "event_data_condition"
 const val KEY_EVENT_PARAMS_CONDITION = "event_params_condition"
@@ -259,7 +259,7 @@ const val KEY_BACK_CODE_ACTION = 2000
 const val KEY_BACK_DATA_ACTION = "back_data_action"
 const val KEY_BACK_DESCRIPTION_ACTION = "back_description_action"
 
-//注意：TASK_CONDITION_XXX 枚举值 等于 TASK_CONDITION_FRAGMENT_LIST 索引加上 KEY_BACK_CODE_CONDITION，不可改变
+//Note: TASK_CONDITION_XXX values equal the TASK_CONDITION_FRAGMENT_LIST index plus KEY_BACK_CODE_CONDITION; do not change them
 const val TASK_CONDITION_CRON = 1000
 const val TASK_CONDITION_TO_ADDRESS = 1001
 const val TASK_CONDITION_LEAVE_ADDRESS = 1002
@@ -273,7 +273,7 @@ const val TASK_CONDITION_CALL = 1009
 const val TASK_CONDITION_APP = 1010
 const val TASK_CONDITION_BLUETOOTH = 1011
 
-//注意：TASK_ACTION_XXX 枚举值 等于 TASK_ACTION_FRAGMENT_LIST 索引加上 KEY_BACK_CODE_ACTION，不可改变
+//Note: TASK_ACTION_XXX values equal the TASK_ACTION_FRAGMENT_LIST index plus KEY_BACK_CODE_ACTION; do not change them
 const val TASK_ACTION_SENDSMS = 2000
 const val TASK_ACTION_NOTIFICATION = 2001
 const val TASK_ACTION_CLEANER = 2002
@@ -310,10 +310,10 @@ const val SP_CONNECTED_DEVICE = "connected_device"
 const val SP_DISCOVERED_DEVICES = "discovered_devices"
 const val SP_BLUETOOTH_STATE = "bluetooth_state"
 
-//SIM卡已准备就绪时，延迟5秒（给够搜索信号时间）才执行任务
+//When the SIM is ready, wait five seconds for signal acquisition before executing tasks
 const val DELAY_TIME_AFTER_SIM_READY = 5000L
 
-//切换语言需要替换的自定义模板标签列表
+//Custom template tags to update when changing language
 //val TAG_LANG = arrayOf("zh_CN", "zh_TW", "en")
 val TAG_LIST = arrayOf(
     mapOf("zh_CN" to "{{来源号码}}", "zh_TW" to "{{來源號碼}}", "en" to "{{FROM}}"),

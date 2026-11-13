@@ -22,7 +22,7 @@ import com.xuexiang.xutil.resource.ResUtils.getString
 import com.zzhoujay.richtext.RichText
 
 /**
- * 小贴士弹窗
+ * Guide tips dialog
  *
  * @author xuexiang
  * @since 2019-08-22 17:02
@@ -39,7 +39,7 @@ class GuideTipsDialog(context: Context?, tips: List<TipInfo>) :
     private var mTvContent: TextView? = null
 
     /**
-     * 初始化弹窗
+     * Initialize the dialog
      */
     private fun initViews() {
         mTvTitle = findViewById(R.id.tv_title)
@@ -62,9 +62,9 @@ class GuideTipsDialog(context: Context?, tips: List<TipInfo>) :
     }
 
     /**
-     * 更新提示信息
+     * Update tips
      *
-     * @param tips 提示信息
+     * @param tips Message
      */
     private fun updateTips(tips: List<TipInfo>) {
         mTips = tips
@@ -75,9 +75,9 @@ class GuideTipsDialog(context: Context?, tips: List<TipInfo>) :
     }
 
     /**
-     * 切换提示信息
+     * Switch tips
      *
-     * @param index 索引
+     * @param index Index
      */
     private fun switchTipInfo(index: Int) {
         if (mTips != null && mTips!!.isNotEmpty() && mTvContent != null) {
@@ -104,9 +104,9 @@ class GuideTipsDialog(context: Context?, tips: List<TipInfo>) :
     }
 
     /**
-     * 显示富文本
+     * Display rich text
      *
-     * @param tipInfo 提示信息
+     * @param tipInfo Message
      */
     private fun showRichText(tipInfo: TipInfo) {
         mTvTitle!!.text = tipInfo.title
@@ -147,9 +147,9 @@ class GuideTipsDialog(context: Context?, tips: List<TipInfo>) :
             "cn.ppps.forwarder.widget.key_is_ignore_tips_"
 
         /**
-         * 显示提示
+         * Show tips
          *
-         * @param context 上下文
+         * @param context Context
          */
         @JvmStatic
         fun showTips(context: Context?) {
@@ -159,17 +159,14 @@ class GuideTipsDialog(context: Context?, tips: List<TipInfo>) :
         }
 
         /**
-         * 强制显示提示
+         * Force tips to be displayed
          *
-         * @param context 上下文
+         * @param context Context
          */
         @JvmStatic
         fun showTipsForce(context: Context?) {
-            // Use the bundled English guide for English and unsupported system languages.
-            // Keep the existing remote Chinese guides for Chinese locales.
-            if (context != null && !getString(R.string.url_tips).endsWith("/tips.json") &&
-                !getString(R.string.url_tips).endsWith("/tips_tc.json")
-            ) {
+            // Use the bundled English guide; fall back to the existing English endpoint.
+            if (context != null) {
                 try {
                     val json = context.assets.open("tips_en.json").bufferedReader().use { it.readText() }
                     val data = Gson().fromJson(json, JsonObject::class.java)["Data"].asJsonArray
@@ -184,7 +181,7 @@ class GuideTipsDialog(context: Context?, tips: List<TipInfo>) :
             XHttp.get(getString(R.string.url_tips))
                 .keepJson(true)
                 .ignoreHttpsCert()
-                .timeStamp(true) //url自动追加时间戳，避免缓存
+                .timeStamp(true) //Automatically append a timestamp to the URL to avoid caching
                 .execute(object : SimpleCallBack<String>() {
                     override fun onError(e: ApiException) {
                         e.printStackTrace()
